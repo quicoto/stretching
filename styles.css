@@ -1,0 +1,44 @@
+body {
+  background: linear-gradient(
+    0deg,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+main {
+  height: 100dvh;
+  text-align: center;
+}
+
+h1 {
+  color: white;
+  font-weight: 300;
+  letter-spacing: 6px;
+  margin-bottom: 40px;
+}
+
+button {
+  background: transparent;
+  border-radius: 50%;
+  border: 5px solid white;
+  color: white;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: 600;
+  height: 200px;
+  width: 200px;
+}
+
+img {
+  max-width: 200px;
+  margin: 0 auto 20px auto;
+}
+
+#text,
+#counter {
+  color: white;
+  font-size: 30px;
+}
