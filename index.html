@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stretching</title>
+    <link rel="icon" type="image/png" href="./assets/favicon-48x48.png" sizes="48x48" />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="shortcut icon" href="./assets/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Stretching" />
+    <link rel="manifest" href="./assets/site.webmanifest" />
+    <style>
+      body {
+        background: linear-gradient(0deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        overflow: hidden;
+      }
+
+      main {
+        height: 100dvh;
+        text-align: center;
+      }
+
+      h1 {
+        color: white;
+        font-weight: 300;
+        letter-spacing: 6px;
+        margin-bottom: 40px;
+      }
+
+      button {
+        background: transparent;
+        border-radius: 50%;
+        border: 5px solid white;
+        color: white;
+        cursor: pointer;
+        font-size: 30px;
+        font-weight: 600;
+        height: 200px;
+        width: 200px;
+      }
+
+      img {
+        max-width: 200px;
+        margin: 0 auto 20px auto;
+      }
+
+      #text,
+      #counter {
+        color: white;
+        font-size: 30px;
+      }
+    </style>
+    <link rel="stylesheet" href="./fireworks.css">
+  </head>
+  <body>
+    <main>
+      <h1>Stretching</h1>
+      <div class="pyro" style="display: none;">
+        <div class="before"></div>
+        <div class="after"></div>
+      </div>
+      <button id="start">Start</button>
+      <div>
+        <img style="display: none;" id="icon" src="./assets/horizontal.svg" alt="">
+      </div>
+      <div id="counter"></div>
+      <div id="text"></div>
+    </main>
+    <script type="module" src="./screenLock.js"></script>
+    <script>
+      const _$ = {};
+      // Duration in seconds -> Milliseconds
+      const duration = {
+        horizontal: 180,
+        break: 10,
+        vertical: 90,
+      };
+
+      function _onClick() {
+        let innerCounter = 0;
+        let counter = 0;
+        let interval;
+
+        function _action() {
+          let text = "Horizontal";
+          let number = duration.horizontal
+          let icon = 'horizontal';
+
+          if (innerCounter > duration.horizontal) {
+            text = "Break";
+            number = duration.break
+            icon = 'break';
+          }
+
+          if (innerCounter > duration.horizontal + duration.break) {
+            text = "Vertical";
+            number = duration.vertical
+            icon = 'vertical';
+          }
+
+          _$.icon.style.display = "block";
+          _$.icon.src = `./assets/${icon}.svg`;
+
+          if (innerCounter > duration.horizontal + duration.break + duration.vertical) {
+            text = "Done!";
+            clearInterval(interval);
+            _$.counter.style.display = "none";
+            _$.icon.style.display = "none";
+            _$.fireworks.style.display = "block";
+          }
+
+          _$.text.innerHTML = text;
+          _$.counter.innerHTML = number - counter;
+
+          if (innerCounter === duration.horizontal || (innerCounter === duration.horizontal + duration.break)) {
+            counter = 0;
+          } else {
+            counter++;
+          }
+
+          innerCounter++;
+        }
+
+        _$.button.style.display = "none";
+        _action();
+        interval = setInterval(_action, 1000);
+      }
+
+      function _addEventListeners() {
+        _$.button.addEventListener("click", _onClick);
+      }
+
+      function _setElements() {
+        _$.button = document.getElementById("start");
+        _$.text = document.getElementById("text");
+        _$.counter = document.getElementById("counter");
+        _$.icon = document.getElementById("icon");
+        _$.fireworks = document.querySelector(".pyro");
+      }
+
+      function _init() {
+        _setElements();
+        _addEventListeners();
+      }
+
+      _init();
+    </script>
+  </body>
+</html>
