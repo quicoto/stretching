@@ -35,6 +35,10 @@ function _onClick() {
       innerCounter >
       duration.horizontal + duration.break + duration.vertical
     ) {
+      // Play asset "success.mp3"
+      const audio = new Audio("./assets/success.mp3");
+      audio.play();
+
       text = "Done!";
       clearInterval(interval);
       _$.counter.style.display = "none";
