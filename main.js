@@ -2,8 +2,8 @@ const _$ = {};
 // Duration in seconds -> Milliseconds
 const duration = {
   horizontal: 180,
-  break: 10,
-  vertical: 90,
+  break: 15,
+  vertical: 120,
 };
 
 function _onClick() {
